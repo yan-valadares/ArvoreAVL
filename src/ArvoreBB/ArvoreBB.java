@@ -157,7 +157,7 @@ public class ArvoreBB {
 		}
 	}
 	
-	public No removerNoArvoreRecursivamente(No noReferencia, int valorRemovido) {
+	protected No removerNoArvoreRecursivamente(No noReferencia, int valorRemovido) {
 		
 			if (noReferencia == null) {
 				return null;
@@ -193,15 +193,15 @@ public class ArvoreBB {
 			
 	}
 	
-	private boolean soFilhoDireito(No noReferencia) {
+	protected boolean soFilhoDireito(No noReferencia) {
 		return ((noReferencia.getDireito() != null) && (noReferencia.getEsquerdo() == null));
 	}
 	
-	private boolean soFilhoEsquerdo(No noReferencia) {
+	protected boolean soFilhoEsquerdo(No noReferencia) {
 		return ((noReferencia.getDireito() == null) && (noReferencia.getEsquerdo() != null));
 	}
 	
-	private int pegaMenorValor(No noReferencia) {
+	protected int pegaMenorValor(No noReferencia) {
 		if (noReferencia.getEsquerdo() == null) {
 			return noReferencia.getValor();
 		}

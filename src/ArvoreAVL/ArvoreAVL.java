@@ -4,7 +4,7 @@ import ArvoreBB.ArvoreBB;
 import No.No;
 
 public class ArvoreAVL extends ArvoreBB {
-
+	
 	@Override
 	public void adicionaNo(int valorNoAdicionado) {
 		
@@ -29,6 +29,8 @@ public class ArvoreAVL extends ArvoreBB {
 					 novoNo = new No(valorNoAcionado, null, null);
 					 novoNo.setPai(noReferencia);
 					 noReferencia.setEsquerdo(novoNo);
+					 this.calcularBalanceamento(raiz);
+				     verificaBalanceamento(novoNo);
 				 }
 				 else {
 					 insereNovoNoArvoreRercursivamente(noReferencia.getEsquerdo(), valorNoAcionado);
@@ -40,13 +42,14 @@ public class ArvoreAVL extends ArvoreBB {
 					 novoNo = new No(valorNoAcionado, null, null);
 					 novoNo.setPai(noReferencia);
 					 noReferencia.setDireito(novoNo);
+					 this.calcularBalanceamento(raiz);
+				     verificaBalanceamento(novoNo);
 				 }
 				 else {
 					 insereNovoNoArvoreRercursivamente(noReferencia.getDireito(), valorNoAcionado);
 				 }
 			}
 			
-			balancearArvore();
 		}
 	}
 	
@@ -61,14 +64,14 @@ public class ArvoreAVL extends ArvoreBB {
 			percorrerArvoreDeBaixoPraCimaBalanceando(raiz);
 		}
 	}
-	
-	private void balancearArvore() {
-		if(this.raiz == null) {
-			throw new IllegalArgumentException(OPERACAO_INVALIDA_ARVORE_VAZIA);
-		}
-		calcularBalanceamento(this.raiz);
-		percorrerArvoreDeBaixoPraCimaBalanceando(this.raiz);
-	}
+
+//	private void balancearArvore() {
+//		if(this.raiz == null) {
+//			throw new IllegalArgumentException(OPERACAO_INVALIDA_ARVORE_VAZIA);
+//		}
+//		calcularBalanceamento(this.raiz);
+//		percorrerArvoreDeBaixoPraCimaBalanceando(this.raiz);
+//	}
 	
 	private void percorrerArvoreDeBaixoPraCimaBalanceando(No noReferencia) {
 		if(noReferencia != null) {
@@ -118,28 +121,28 @@ public class ArvoreAVL extends ArvoreBB {
 				if(noReferencia.getBalanceamento() < 0 && noReferencia.getDireito().getBalanceamento() < 0){
 					// P -> Balanceamento: negativo // U -> Balanceamento: negativo
 					
-					System.out.println("Rotação simples para esquerda");
+					System.out.println("Rotação simples para esquerda (" + noReferencia.getValor() + ", " + noReferencia.getDireito().getValor() + ")");
 					rotacaoSimplesEsquerda(noReferencia);
 				}
 				
 				else if(noReferencia.getBalanceamento() > 0 && noReferencia.getEsquerdo().getBalanceamento() > 0){
 					// P -> Balanceamento: positivo // U -> Balanceamento: positivo
 					
-					System.out.println("Rotação simples para direita");
+					System.out.println("Rotação simples para direita (" + noReferencia.getValor() + ", " + noReferencia.getEsquerdo().getValor() + ")");
 					rotacaoSimplesDireita(noReferencia);
 				}
 				
 				else if(noReferencia.getBalanceamento() < 0 && noReferencia.getDireito().getBalanceamento() > 0){
 					// P -> Balanceamento: negativo // U -> Balanceamento: positivo
 					
-					System.out.println("Rotação dupla para esquerda");
+					System.out.println("Rotação dupla para esquerda (" + noReferencia.getValor() + ", " + noReferencia.getDireito().getValor() + ")");
 					rotacaoDuplaEsquerda(noReferencia);
 				}
 				
 				else if(noReferencia.getBalanceamento() > 0 && noReferencia.getEsquerdo().getBalanceamento() < 0){
 					// P -> Balanceamento: positivo // U -> Balanceamento: negativo
 					
-					System.out.println("Rotação dupla para direita");
+					System.out.println("Rotação dupla para direita (" + noReferencia.getValor() + ", " + noReferencia.getEsquerdo().getValor() + ")");
 					rotacaoDuplaDireita(noReferencia);
 				}
 			}
@@ -317,4 +320,7 @@ public class ArvoreAVL extends ArvoreBB {
 	    }
 	}
 	
+	public void limparArvore() {
+		this.raiz = null;
+	}
 }

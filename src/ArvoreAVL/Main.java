@@ -23,6 +23,7 @@ public class Main {
 			System.out.println("4. Verificar se o valor existe");
 			System.out.println("5. Verificar altura da árvore");
 			System.out.println("6. Verificar quantidade de nós");
+			System.out.println("7. Limpar árvore");
 			System.out.println("0. Sair");
 			
 			opcao = scanner.nextInt();
@@ -69,6 +70,11 @@ public class Main {
 				case 6:
 					auxiliar = arvore.pegaQuantidadeNos();
 					System.out.println("Quantidade de nós: " + auxiliar);
+					break;
+					
+				case 7:
+					arvore.limparArvore();
+					System.out.println("Árvore limpa!");
 					break;
 					
 				case 0:
