@@ -1,6 +1,6 @@
-package ArvoreBB;
+package arvoreBB;
 
-import No.No;
+import no.No;
 
 public class ArvoreBB {
 

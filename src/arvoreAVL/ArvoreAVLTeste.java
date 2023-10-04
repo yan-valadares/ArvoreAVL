@@ -1,11 +1,11 @@
-package ArvoreAVL;
+package arvoreAVL;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import No.No;
+import no.No;
 
 class ArvoreAVLTeste {
 

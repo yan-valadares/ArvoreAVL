@@ -1,7 +1,7 @@
-package ArvoreAVL;
+package arvoreAVL;
 
-import ArvoreBB.ArvoreBB;
-import No.No;
+import arvoreBB.ArvoreBB;
+import no.No;
 
 public class ArvoreAVL extends ArvoreBB {
 	
@@ -60,18 +60,51 @@ public class ArvoreAVL extends ArvoreBB {
 			throw new IllegalArgumentException(OPERACAO_INVALIDA_ARVORE_VAZIA);
 		}
 		else {
-			raiz = removerNoArvoreRecursivamente(raiz, valorRemovido);
-			percorrerArvoreDeBaixoPraCimaBalanceando(raiz);
+			raiz = removerNoArvoreRecursivamente(raiz, valorRemovido);	
+			this.calcularBalanceamento(this.raiz);
+			percorrerArvoreDeBaixoPraCimaBalanceando(this.raiz);
 		}
+		
+		
 	}
+	
+	@Override
+	protected No removerNoArvoreRecursivamente(No noReferencia, int valorRemovido) {
+		
+		if (noReferencia == null) {
+			return null;
+		}
+		
+		if (valorRemovido == noReferencia.getValor()) {
+			
+			if (noReferencia.ehFolha()) {
+				return null;
+			}
+			
+			else if (soFilhoDireito(noReferencia)) {
+				 return noReferencia.getDireito();
+			}
+			else if (soFilhoEsquerdo(noReferencia)) {
+				return noReferencia.getEsquerdo();
+			}
+			else {
+				int menorValor = pegaMenorValor (noReferencia.getDireito());
+				noReferencia.setValor(menorValor);
+				noReferencia.setDireito(removerNoArvoreRecursivamente(noReferencia.getDireito(), menorValor));
+				return noReferencia;
+			}
+		}
+		
+		if (valorRemovido < noReferencia.getValor()) {
+			 noReferencia.setEsquerdo(removerNoArvoreRecursivamente(noReferencia.getEsquerdo(), valorRemovido));	 
+		}
+		else {
+			 noReferencia.setDireito(removerNoArvoreRecursivamente(noReferencia.getDireito(), valorRemovido));
+		}
+		return noReferencia;
+		
+}
 
-//	private void balancearArvore() {
-//		if(this.raiz == null) {
-//			throw new IllegalArgumentException(OPERACAO_INVALIDA_ARVORE_VAZIA);
-//		}
-//		calcularBalanceamento(this.raiz);
-//		percorrerArvoreDeBaixoPraCimaBalanceando(this.raiz);
-//	}
 	
 	private void percorrerArvoreDeBaixoPraCimaBalanceando(No noReferencia) {
 		if(noReferencia != null) {
@@ -79,6 +112,7 @@ public class ArvoreAVL extends ArvoreBB {
 			percorrerArvoreDeBaixoPraCimaBalanceando(noReferencia.getDireito());
 			
 			if(noReferencia.ehFolha()) {
+				
 				verificaBalanceamento(noReferencia);
 			}
 		}
@@ -118,14 +152,14 @@ public class ArvoreAVL extends ArvoreBB {
 			if(noReferencia.getBalanceamento() >= 2 || noReferencia.getBalanceamento() <= -2) {
 				// verificação de qual tipo de rotação necessária
 				
-				if(noReferencia.getBalanceamento() < 0 && noReferencia.getDireito().getBalanceamento() < 0){
+				if(noReferencia.getBalanceamento() < 0 && noReferencia.getDireito().getBalanceamento() <= 0){
 					// P -> Balanceamento: negativo // U -> Balanceamento: negativo
 					
 					System.out.println("Rotação simples para esquerda (" + noReferencia.getValor() + ", " + noReferencia.getDireito().getValor() + ")");
 					rotacaoSimplesEsquerda(noReferencia);
 				}
 				
-				else if(noReferencia.getBalanceamento() > 0 && noReferencia.getEsquerdo().getBalanceamento() > 0){
+				else if(noReferencia.getBalanceamento() > 0 && noReferencia.getEsquerdo().getBalanceamento() >= 0){
 					// P -> Balanceamento: positivo // U -> Balanceamento: positivo
 					
 					System.out.println("Rotação simples para direita (" + noReferencia.getValor() + ", " + noReferencia.getEsquerdo().getValor() + ")");

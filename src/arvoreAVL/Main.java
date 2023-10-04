@@ -1,4 +1,4 @@
-package ArvoreAVL;
+package arvoreAVL;
 
 
 import java.util.Scanner;
@@ -48,7 +48,12 @@ public class Main {
 					break;
 					
 				case 3:
-					arvore.imprimirArvore();
+					try {
+						arvore.imprimirArvore();
+					} catch (Exception e) {
+						System.out.println("Árvore vazia");
+					}
+
 					break;
 					
 				case 4:

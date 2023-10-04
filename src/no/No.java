@@ -1,4 +1,4 @@
-package No;
+package no;
 
 public class No {
 
